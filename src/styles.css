@@ -72,6 +72,8 @@ input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius
   font-size: 12px; padding: 6px 8px; border-radius: 5px;
 }
 .top-text-btn:hover:not(:disabled) { color: var(--text); background: var(--elev); }
+a.top-text-btn { text-decoration: none; cursor: pointer; white-space: nowrap; }
+a.top-text-btn:hover { color: var(--text); background: var(--elev); }
 .avatar {
   width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 700;
   background: linear-gradient(135deg, #4ee1d8, #7d6cff); color: #10121a;

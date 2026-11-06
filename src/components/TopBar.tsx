@@ -1,4 +1,4 @@
-import { Check, ChevronDown, Download, Redo2, Sparkles, Undo2 } from 'lucide-react';
+import { Check, ChevronDown, Download, ExternalLink, Redo2, Sparkles, Undo2 } from 'lucide-react';
 import type { Project } from '../types';
 import { totalDuration } from '../lib/utils';
 import { IconBtn } from './ui';
@@ -43,7 +43,10 @@ export default function TopBar({ project, name, onRename, onAIStudio, onExport, 
         <IconBtn title="Redo (Ctrl+Y)" onClick={onRedo} disabled={!canRedo}><Redo2 size={16} /></IconBtn>
         <div className="top-sep" />
         <button className="top-text-btn" onClick={onScript} disabled={!project}>Script <ChevronDown size={12} /></button>
-        <button className="top-text-btn" onClick={() => undefined} disabled={!project}>View <ChevronDown size={12} /></button>
+        <a className="top-text-btn project-link" href="/tea-for-two/" target="_blank" rel="noopener noreferrer"
+           title="Open the generated Tea for Two project">
+          Projects <ExternalLink size={12} />
+        </a>
         {project && <span className="top-chip">{project.aspect} · {project.fps}fps · {duration.toFixed(1)}s</span>}
       </div>
 

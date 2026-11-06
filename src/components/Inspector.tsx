@@ -68,7 +68,7 @@ export default function Inspector({
                 <SectionTitle>Scene recipe</SectionTitle>
                 <Field label="Visual motif">
                   <select className="select" value={scene.motif} onChange={(e) => patch({ motif: e.target.value as Scene['motif'] })}>
-                    {['abstract', 'nature', 'city', 'ocean', 'space', 'product', 'people'].map((m) => <option key={m} value={m}>{m}</option>)}
+                    {['abstract', 'nature', 'city', 'ocean', 'space', 'product', 'people', 'tea'].map((m) => <option key={m} value={m}>{m}</option>)}
                   </select>
                 </Field>
                 <Field label="Colour palette" hint="click to edit">

@@ -19,6 +19,7 @@ const MOTIF_LOOK: Record<MotifId, string> = {
   space: 'star field, planetary body, nebula glow, deep-space scale',
   product: 'minimal studio podium, hero object centred, rim light, clean negative space',
   people: 'human silhouettes, backlit rim light, candid composition',
+  tea: 'sunlit kitchen table, a man offering a teacup and saucer to his wife, teapot, curling steam, warm window light',
   abstract: 'geometric forms, soft gradient fields, floating particles',
 };
 

@@ -14,6 +14,9 @@ tsconfig.tsbuildinfo
 # Locally rendered showcase artefacts (WebM, PNGs, generated HTML report)
 /showcase/
 
+# Vercel CLI link metadata (local machine / account specific)
+.vercel/
+
 # Local environment and provider API keys
 # The gateway reads keys from env vars or the in-app Model Studio (runtime only).
 .env

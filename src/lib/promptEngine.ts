@@ -7,6 +7,9 @@ import { predictDirection, resolveStyle } from './brain/director';
 import { buildImagePrompt, improveProject, scoreProject } from './brain/quality';
 import { clamp, hashString, uid } from './utils';
 
+/** Motifs that depict a concrete named scene and must drive every shot. */
+const LITERAL_MOTIFS = new Set<MotifId>(['tea']);
+
 /**
  * Extra inputs supplied by the Model Studio / cloud gateway.
  * Everything is optional: with no arguments the engine is 100% local and offline.
@@ -220,10 +223,15 @@ function makeScene(index: number, duration: number, ctx: SceneContext): Scene {
 
   // The director predicts the dominant motif. A keyword-detected accent motif is
   // woven into some shots so the cut stays grounded in the literal prompt without
-  // losing visual continuity.
+  // losing visual continuity. Literal scene motifs are the exception: when the
+  // prompt names a concrete action/setting (e.g. serving tea in a kitchen),
+  // blending it into only a couple of shots leaves the rest abstract, so every
+  // shot uses that motif and varies its framing instead.
   const accent = ctx.promptMotif !== direction.motif &&
     (index % 3 === 2 || (direction.confidence < 0.5 && index % 2 === 1));
-  const motif: MotifId = accent ? ctx.promptMotif : direction.motif;
+  const motif: MotifId = LITERAL_MOTIFS.has(ctx.promptMotif)
+    ? ctx.promptMotif
+    : accent ? ctx.promptMotif : direction.motif;
 
   const scene: Scene = {
     id: uid('scene'),

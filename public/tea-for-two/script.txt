@@ -1,0 +1,47 @@
+TITLE: Tender Film Man
+
+PROMPT: A tender cinematic short film about a man serving his wife tea in a warm…
+
+STYLE: watercolor · soft, handmade, nostalgic
+
+DIRECTION: ClipForge Director v1 · local → watercolor/people · 2.14 cuts/10s · energy 0.45 · 5 shots · confidence 96%
+
+SCRIPT: ClipForge local writer + Director v1
+
+FORMAT: 16:9 · 30fps · 1080p · 12.1s
+
+MUSIC: Warm Piano & Strings · 68 BPM · G major
+
+
+
+[SCENE 1 · HOOK · 2.8s]
+CAMERA       Slow bloom reveal
+VISUAL       tea / #a6b9c9
+ON-SCREEN    IT STARTS HERE
+VOICEOVER    Look closer. A tender cinematic short film about a man serving his wife tea in a warm… is not what it seems.
+IMAGE PROMPT A tender cinematic short film about a man serving his wife tea in a warm…. — shot 1 of 4, hook beat, slow bloom reveal. soft watercolor on cold-press paper, bleeding pigment edges, pastel washes, gentle light. sunlit kitchen table, a man offering a teacup and saucer to his wife, teapot, curling steam, warm window light. palette #f3e3cf, #d9b48a, #a6b9c9, #e7c2b8. emotional tone A tender cinematic short film about a man serving his wife t. single cinematic still frame, ultra detailed, no text, no watermark, no logo
+OUTRO        dissolve → next scene
+
+[SCENE 2 · SETUP · 3.7s]
+CAMERA       Gentle parallax drift
+VISUAL       tea / #9dbba9
+ON-SCREEN    Cinematic · MEET Tender
+VOICEOVER    We follow the light as it finds its way across tender. The frame keeps returning to cinematic.
+IMAGE PROMPT A tender cinematic short film about a man serving his wife tea in a warm…. — shot 2 of 4, setup beat, gentle parallax drift. soft watercolor on cold-press paper, bleeding pigment edges, pastel washes, gentle light. sunlit kitchen table, a man offering a teacup and saucer to his wife, teapot, curling steam, warm window light. palette #f6ead9, #efae9b, #9dbba9, #cdb6dd. emotional tone . single cinematic still frame, ultra detailed, no text, no watermark, no logo
+OUTRO        dissolve → next scene
+
+[SCENE 3 · CLIMAX · 2.8s]
+CAMERA       Slow bloom reveal
+VISUAL       tea / #a8c3b4
+ON-SCREEN    THIS IS THE MOMENT
+VOICEOVER    Light, motion and tender finally collide.
+IMAGE PROMPT A tender cinematic short film about a man serving his wife tea in a warm…. — shot 3 of 4, climax beat, slow bloom reveal. soft watercolor on cold-press paper, bleeding pigment edges, pastel washes, gentle light. sunlit kitchen table, a man offering a teacup and saucer to his wife, teapot, curling steam, warm window light. palette #f7eede, #e5a6a0, #a8c3b4, #c9b1dc. emotional tone . single cinematic still frame, ultra detailed, no text, no watermark, no logo
+OUTRO        dissolve → next scene
+
+[SCENE 4 · OUTRO · 2.8s]
+CAMERA       Gentle parallax drift
+VISUAL       tea / #a6b9c9
+ON-SCREEN    Tender · THE END IS YOURS
+VOICEOVER    Some moments do not need an ending. This is one of them. The frame keeps returning to tender.
+IMAGE PROMPT A tender cinematic short film about a man serving his wife tea in a warm…. — shot 4 of 4, outro beat, gentle parallax drift. soft watercolor on cold-press paper, bleeding pigment edges, pastel washes, gentle light. sunlit kitchen table, a man offering a teacup and saucer to his wife, teapot, curling steam, warm window light. palette #f3e3cf, #d9b48a, #a6b9c9, #e7c2b8. emotional tone This is one of them.. single cinematic still frame, ultra detailed, no text, no watermark, no logo
+OUTRO        dissolve → next scene
