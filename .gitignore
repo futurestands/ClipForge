@@ -11,6 +11,9 @@ tsconfig.tsbuildinfo
 # Generated distributable; source lives in clipforge_companion/
 /clipforge_companion.zip
 
+# Locally rendered showcase artefacts (WebM, PNGs, generated HTML report)
+/showcase/
+
 # Local environment and provider API keys
 # The gateway reads keys from env vars or the in-app Model Studio (runtime only).
 .env

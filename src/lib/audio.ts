@@ -108,16 +108,39 @@ export function startPreviewAudio(style: StyleId): () => void {
   }
 }
 
-export function createExportAudio(style: StyleId): { track: MediaStreamTrack; stop: () => void } | null {
+/**
+ * Build the export soundtrack. Returns null when the AudioContext cannot be
+ * started (e.g. no user gesture / a backgrounded tab). Adding a track from a
+ * suspended context stalls MediaRecorder entirely — the recorder emits no
+ * `onstart`, no `dataavailable` and finally produces a 0-byte WebM — so a
+ * silent video is strictly better than a broken one.
+ */
+export async function createExportAudio(style: StyleId): Promise<{ track: MediaStreamTrack; stop: () => void } | null> {
+  let ctx: AudioContext | null = null;
   try {
-    const ctx = new AudioContext();
+    ctx = new AudioContext();
+    if (ctx.state !== 'running') {
+      // resume() can hang forever without user activation; never block export on it.
+      await Promise.race([
+        ctx.resume().catch(() => undefined),
+        new Promise<void>((r) => setTimeout(r, 250)),
+      ]);
+    }
+    if (ctx.state !== 'running') {
+      void ctx.close();
+      return null;
+    }
     const dest = ctx.createMediaStreamDestination();
     const amb = build(ctx, dest, style, 0.12);
+    const track = dest.stream.getAudioTracks()[0];
+    if (!track) { void ctx.close(); return null; }
+    const active = ctx;
     return {
-      track: dest.stream.getAudioTracks()[0],
-      stop: () => { amb.stop(); setTimeout(() => { void ctx.close(); }, 600); },
+      track,
+      stop: () => { amb.stop(); setTimeout(() => { void active.close(); }, 600); },
     };
   } catch {
+    if (ctx) void ctx.close().catch(() => undefined);
     return null;
   }
 }

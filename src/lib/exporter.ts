@@ -288,8 +288,11 @@ export async function renderPosterAsync(project: Project, time: number): Promise
   return canvas.toDataURL('image/png');
 }
 
-function pickMime(): string {
-  const candidates = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp9', 'video/webm;codecs=vp8,opus', 'video/webm'];
+function pickMime(withAudio: boolean): string {
+  // Never advertise an opus track we are not going to supply.
+  const candidates = withAudio
+    ? ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm;codecs=vp9', 'video/webm']
+    : ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'];
   for (const m of candidates) {
     if (typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported(m)) return m;
   }
@@ -314,12 +317,14 @@ export async function exportWebM(project: Project, cfg: ExportConfig, onProgress
   if (!ctx) throw new Error('Canvas 2D context unavailable.');
   const images = await preloadImages(project);
   const stream = canvas.captureStream(cfg.fps);
-  let audio: ReturnType<typeof createExportAudio> = null;
+  const videoTrack = stream.getVideoTracks()[0] as CanvasCaptureMediaStreamTrack | undefined;
+  let audio: Awaited<ReturnType<typeof createExportAudio>> = null;
   if (cfg.audio && project.soundtrack) {
-    audio = createExportAudio(project.style);
-    if (audio?.track) stream.addTrack(audio.track);
+    audio = await createExportAudio(project.style);
+    if (audio?.track && audio.track.readyState === 'live') stream.addTrack(audio.track);
+    else audio = null;
   }
-  const mime = pickMime();
+  const mime = pickMime(stream.getAudioTracks().length > 0);
   const recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: cfg.bitrate });
   const chunks: BlobPart[] = [];
   recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
@@ -337,6 +342,10 @@ export async function exportWebM(project: Project, cfg: ExportConfig, onProgress
       const elapsed = (performance.now() - start) / 1000;
       const t = Math.min(elapsed, duration);
       drawFrame(ctx, cfg.width, cfg.height, t, project, { images });
+      // Push a frame explicitly so throttled / background tabs still feed the encoder.
+      if (videoTrack && videoTrack.readyState === 'live' && typeof videoTrack.requestFrame === 'function') {
+        videoTrack.requestFrame();
+      }
       onProgress(Math.min(1, elapsed / duration));
       if (elapsed >= duration) { resolve(); return; }
       requestAnimationFrame(tick);
@@ -347,5 +356,10 @@ export async function exportWebM(project: Project, cfg: ExportConfig, onProgress
   await finished;
   audio?.stop();
   stream.getTracks().forEach((t) => t.stop());
-  return new Blob(chunks, { type: mime });
+  const blob = new Blob(chunks, { type: mime });
+  // Never report success with an unplayable file (a stalled recorder yields 0 bytes).
+  if (blob.size < 512) {
+    throw new Error('Recorder produced no frames. Keep this tab visible and export again.');
+  }
+  return blob;
 }
