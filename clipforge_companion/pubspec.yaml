@@ -1,0 +1,34 @@
+name: clipforge_companion
+description: "Companion remote for ClipForge AI — monitor and drive the local model gateway from any Flutter platform."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management — plain Riverpod 2, no code generation required.
+  flutter_riverpod: ^2.5.1
+
+  # Navigation with named routes, shell nav and deep links.
+  go_router: ^14.2.0
+
+  # HTTP client for the ClipForge /api gateway.
+  dio: ^5.5.0
+
+  # Persists only the gateway base URL. Provider keys are NEVER stored.
+  shared_preferences: ^2.2.3
+
+  # "Open editor" deep link into the React studio.
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

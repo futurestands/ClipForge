@@ -1,0 +1,93 @@
+{
+  "online": true,
+  "providers": {
+    "script": false,
+    "image": false,
+    "video": false,
+    "voice": false
+  },
+  "labels": {
+    "script": "No OPENAI_API_KEY — local fallback",
+    "image": "No FAL_KEY — local fallback",
+    "video": "No FAL_KEY — local fallback",
+    "voice": "No ELEVENLABS_API_KEY — local fallback"
+  },
+  "budget": {
+    "spent": 0,
+    "cap": 2.5,
+    "calls": 0
+  },
+  "version": "1.0.0",
+  "models": [
+    {
+      "capability": "script",
+      "id": "gpt-5.1",
+      "label": "GPT-5.1",
+      "provider": "OpenAI / OpenRouter",
+      "env": "OPENAI_API_KEY",
+      "cost": 0.06,
+      "tier": "frontier",
+      "detail": "Long-context shot-list reasoning with strict JSON output.",
+      "contract": "POST {base}/chat/completions · OpenAI-compatible",
+      "alternatives": [
+        "claude-opus-4-5",
+        "gemini-3-pro",
+        "gpt-5.2"
+      ]
+    },
+    {
+      "capability": "image",
+      "id": "fal-ai/flux-2-pro",
+      "label": "FLUX.2 Pro",
+      "provider": "fal.ai",
+      "env": "FAL_KEY",
+      "cost": 0.05,
+      "tier": "frontier",
+      "detail": "Photoreal, prompt-faithful keyframes with strong typography control.",
+      "contract": "POST https://fal.run/{model}",
+      "alternatives": [
+        "fal-ai/nano-banana-pro",
+        "fal-ai/imagen4-ultra",
+        "fal-ai/qwen-image"
+      ]
+    },
+    {
+      "capability": "video",
+      "id": "fal-ai/veo3.1",
+      "label": "Veo 3.1",
+      "provider": "fal.ai",
+      "env": "FAL_KEY",
+      "cost": 0.5,
+      "tier": "frontier",
+      "detail": "Native motion clips with synced audio; used for hero shots.",
+      "contract": "POST https://queue.fal.run/{model} + status polling",
+      "alternatives": [
+        "fal-ai/kling-3.0",
+        "fal-ai/seedance-2.0",
+        "fal-ai/wan-2.2"
+      ]
+    },
+    {
+      "capability": "voice",
+      "id": "eleven_multilingual_v2",
+      "label": "ElevenLabs v2",
+      "provider": "ElevenLabs",
+      "env": "ELEVENLABS_API_KEY",
+      "cost": 0.02,
+      "tier": "frontier",
+      "detail": "Natural multilingual narration for the voiceover track.",
+      "contract": "POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}",
+      "alternatives": [
+        "eleven_turbo_v2_5",
+        "eleven_flash_v2_5"
+      ]
+    }
+  ],
+  "defaults": {
+    "scriptModel": "gpt-5.1",
+    "imageModel": "fal-ai/flux-2-pro",
+    "videoModel": "fal-ai/veo3.1",
+    "voiceModel": "eleven_multilingual_v2"
+  },
+  "recent": []
+}

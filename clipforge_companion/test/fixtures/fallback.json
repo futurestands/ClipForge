@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "message": "Director v1, procedural art, ambient score and the critic all run 100% locally — no keys required.",
+  "providers": {
+    "script": false,
+    "image": false,
+    "video": false,
+    "voice": false
+  }
+}

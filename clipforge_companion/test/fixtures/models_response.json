@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "defaults": {
+    "scriptModel": "gpt-5.1",
+    "imageModel": "fal-ai/flux-2-pro",
+    "videoModel": "fal-ai/veo3.1",
+    "voiceModel": "eleven_multilingual_v2"
+  }
+}
