@@ -500,7 +500,7 @@ export default function App() {
         onScript={() => setScriptOpen(true)}
       />
 
-      <div className="workbench">
+      <div className={`workbench${project ? '' : ' no-inspector'}`}>
         <LeftRail tab={tab} onTab={setTab} onShortcuts={() => setShortcutsOpen(true)} />
         {tab === 'ai' ? (
           <AIPanel
@@ -557,37 +557,41 @@ export default function App() {
           onAIStudio={openAIStudio}
         />
 
-        <Inspector
-          project={project}
-          scene={selectedScene}
-          onPatch={patchScene}
-          onProjectPatch={patchProject}
-          onRegenerate={regenerateScene}
-          onRewrite={rewriteSceneText}
-          onDuplicate={duplicateScene}
-          onDelete={deleteScene}
-          onRemoveOverlay={removeOverlay}
-        />
+        {project && (
+          <Inspector
+            project={project}
+            scene={selectedScene}
+            onPatch={patchScene}
+            onProjectPatch={patchProject}
+            onRegenerate={regenerateScene}
+            onRewrite={rewriteSceneText}
+            onDuplicate={duplicateScene}
+            onDelete={deleteScene}
+            onRemoveOverlay={removeOverlay}
+          />
+        )}
       </div>
 
-      <Timeline
-        project={project}
-        time={time}
-        selectedSceneId={selectedSceneId}
-        zoom={zoom}
-        onZoom={setZoom}
-        onSeek={(t) => setTime(clamp(t, 0, project ? totalDuration(project.scenes) : 0))}
-        onSelect={selectScene}
-        onResize={resizeScene}
-        onReorder={reorderScenes}
-        onSplit={splitAtPlayhead}
-        onDelete={deleteScene}
-        onDuplicate={duplicateScene}
-        snap={snap}
-        onToggleSnap={() => setSnap((v) => !v)}
-        onOpenAI={openAIStudio}
-        onOpenExport={() => setExportOpen(true)}
-      />
+      {project && (
+        <Timeline
+          project={project}
+          time={time}
+          selectedSceneId={selectedSceneId}
+          zoom={zoom}
+          onZoom={setZoom}
+          onSeek={(t) => setTime(clamp(t, 0, project ? totalDuration(project.scenes) : 0))}
+          onSelect={selectScene}
+          onResize={resizeScene}
+          onReorder={reorderScenes}
+          onSplit={splitAtPlayhead}
+          onDelete={deleteScene}
+          onDuplicate={duplicateScene}
+          snap={snap}
+          onToggleSnap={() => setSnap((v) => !v)}
+          onOpenAI={openAIStudio}
+          onOpenExport={() => setExportOpen(true)}
+        />
+      )}
 
       {exportOpen && project && (
         <ExportModal

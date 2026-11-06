@@ -37,6 +37,8 @@ input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius
 /* ---------------- App shell ---------------- */
 .app { height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
 .workbench { flex: 1; display: grid; grid-template-columns: 78px 322px minmax(300px, 1fr) 302px; min-height: 0; }
+/* First-open (no project): drop the Properties column so the canvas breathes. */
+.workbench.no-inspector { grid-template-columns: 78px 322px minmax(300px, 1fr); }
 
 /* ---------------- Top bar ---------------- */
 .topbar {
@@ -485,19 +487,26 @@ kbd {
 }
 .toast svg { color: var(--success); }
 @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+/* Panels reveal intentionally when a project first appears. */
+@keyframes panelIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.inspector { animation: panelIn .22s ease both; }
+.timeline { animation: panelIn .22s ease both; }
 
 /* ---------------- Responsive ---------------- */
 @media (max-width: 1500px) {
   .workbench { grid-template-columns: 70px 292px minmax(280px, 1fr) 272px; }
+  .workbench.no-inspector { grid-template-columns: 70px 292px minmax(280px, 1fr); }
   .tl-labels { width: 96px; }
 }
 @media (max-width: 1240px) {
   .workbench { grid-template-columns: 66px 280px minmax(260px, 1fr); }
+  .workbench.no-inspector { grid-template-columns: 66px 280px minmax(260px, 1fr); }
   .inspector { display: none; }
   .top-center { display: none; }
 }
 @media (max-width: 900px) {
   .workbench { grid-template-columns: 62px 1fr; }
+  .workbench.no-inspector { grid-template-columns: 62px 1fr; }
   .side-panel { display: none; }
   .rail-tab { width: 54px; }
   .rail-tab span { font-size: 8px; }
